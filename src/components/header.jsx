@@ -75,6 +75,11 @@ const Header = () => {
 
           {/* Show when user IS logged in */}
           <SignedIn>
+            <Link href="/dashboard">
+              <Button variant="ghost" className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50">
+                Dashboard
+              </Button>
+            </Link>
             <UserButton 
               appearance={{
                 elements: {
