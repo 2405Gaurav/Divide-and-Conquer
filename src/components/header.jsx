@@ -148,6 +148,12 @@ export default function Header() {
             >
               How It Works
             </Link>
+            <Link
+              href="#system-design"
+              className="text-sm font-medium hover:text-green-600 transition"
+            >
+              System Design
+            </Link>
           </div>
         )}
 
