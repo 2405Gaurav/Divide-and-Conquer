@@ -109,9 +109,14 @@ export const getGroupExpenses = query({
     const ids = memberDetails.map((m) => m.id);
 
     /* ----------  ledgers ---------- */
+    //here we will be calculating the each indiduals balances remaining ,how much one owe to give or is owed by to take in a particular group expense
+    //for this we not just calculate the total amount of group expense -each individual,but we will also have to visite the settement table
+
     // total net balance (old behaviour)
     const totals = Object.fromEntries(ids.map((id) => [id, 0]));
     // pair‑wise ledger  debtor -> creditor -> amount
+    //lets sauy we have 3 members A,B,C and A paid 100 for group expense which is to be split equally so B and C owe A 50 each so in the ledger we will have B owes A 50 and C owes A 50 and if later on B settles up with A for 50 then we will update the ledger to reflect that now B owes A 0 and A owes B 0
+    
     const ledger = {};
     ids.forEach((a) => {
       ledger[a] = {};

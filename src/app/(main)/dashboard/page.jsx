@@ -216,7 +216,7 @@ const DashboardPage = () => {
             <Card className="border-none shadow-sm ring-1 ring-black/5">
               <CardHeader className="pb-4 flex flex-row items-center justify-between border-b border-gray-100">
                 <CardTitle className="text-base font-semibold">Your Groups</CardTitle>
-                <Link href="/groups" className="text-sm text-muted-foreground hover:text-primary flex items-center transition-colors">
+                <Link href="/group" className="text-sm text-muted-foreground hover:text-primary flex items-center transition-colors">
                   View all <ArrowRight className="ml-1 h-3 w-3" />
                 </Link>
               </CardHeader>
