@@ -48,7 +48,7 @@ export const createExpense = mutation({
     if (Math.abs(totalSplitAmount - args.amount) > tolerance) {
       throw new Error("Split amounts must add up to the total expense amount");
     }
-    
+
 
     // Create the expense
     const expenseId = await ctx.db.insert("expenses", {
@@ -85,10 +85,10 @@ export const getExpensesBetweenUsers = query({
       )
       .collect();
 
-    const theirPaid = await ctx.db
+    const theirPaid = await ctx.db//thrie paid means the friend to whom i may owe or who may owe me so when i visit his profile i want to see those expenses where he is the payer
       .query("expenses")
       .withIndex("by_user_and_group", (q) =>
-        q.eq("paidByUserId", userId).eq("groupId", undefined)
+        q.eq("paidByUserId", userId).eq("groupId", undefined)//i will get this userId from the path ,so no worriesfbuewfu
       )
       .collect();
 
@@ -109,7 +109,8 @@ export const getExpensesBetweenUsers = query({
 
     expenses.sort((a, b) => b.date - a.date);
 
-    /* ───── 3. Settlements between the two of us (groupId = undefined) ─ */
+    /* ───── 3. Settlements between the two of us (groupId = undefined) ─ */// these are the paid onessss so we will subtract these from above collected onessss
+
     const settlements = await ctx.db
       .query("settlements")
       .filter((q) =>
@@ -131,7 +132,8 @@ export const getExpensesBetweenUsers = query({
 
     settlements.sort((a, b) => b.date - a.date);
 
-    /* ───── 4. Compute running balance ──────────────────────────────── */
+    /* ───── 4. Compute running balance ──────────────────────────────── *///
+    //nwo we calculae  the balance between me and the other user based on the expenses and settlements we have between us. If the balance is positive, it means they owe me money. If it's negative, it means I owe them money.
     let balance = 0;
 
     for (const e of expenses) {
