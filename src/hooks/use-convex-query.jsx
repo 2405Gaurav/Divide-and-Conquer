@@ -1,6 +1,7 @@
 //hooks are the function that lets other function use state,life syscle logic and custom 
 //hooks are used to share logic between components and also to keep the code clean and organized
 //A reusable function that uses other hooks inside it.
+"use client";   
 
 import { useQuery } from "convex/react";
 import { useState, useEffect } from "react";
