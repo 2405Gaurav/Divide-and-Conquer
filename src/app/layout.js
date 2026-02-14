@@ -1,7 +1,9 @@
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Head from "@/components/header";
 import { ClerkProvider } from '@clerk/nextjs'
+import { Toaster } from "sonner";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";//convex client provider is used to provide the convex client to the entire app
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +30,7 @@ export default function RootLayout({ children }) {
         >
           <ConvexClientProvider>
             <Head />
+            <Toaster richColors position="top-right" />
             <main className="min-h-screen">{children}</main>
           </ConvexClientProvider>
         </body>
