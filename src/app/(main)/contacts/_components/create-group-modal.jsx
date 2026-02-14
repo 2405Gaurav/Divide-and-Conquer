@@ -43,16 +43,21 @@ const groupSchema = z.object({
 
 export function CreateGroupModal({ isOpen, onClose, onSuccess }) {
   const [selectedMembers, setSelectedMembers] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(" ");
   const [commandOpen, setCommandOpen] = useState(false);
 
   const { data: currentUser } = useConvexQuery(api.users.getCurrentUser);
   const createGroup = useConvexMutation(api.contacts.createGroup);
-  const { data: searchResults, isLoading: isSearching } = useConvexQuery(
+  // const { data: searchResults, isLoading: isSearching } = useConvexQuery(
+  //   api.users.searchUsers,
+  //   { query: searchQuery }
+  // );
+//updating as showing error that empty string is bing passed that meas i only wnat it to wrok when user type :
+const { data: searchResults, isLoading: isSearching } =
+  useConvexQuery(
     api.users.searchUsers,
-    { query: searchQuery }
+    searchQuery.trim() ? { query: searchQuery } : "skip"
   );
-
   const {
     register,
     handleSubmit,
