@@ -17,13 +17,13 @@ import { cn } from "@/lib/utils";
 
 export default function ContactsPage() {
 //   const [isCreateGroupModalOpen, setIsCreateGroupModalOpen] = useState(false);
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
 const createGroupParam = searchParams.get("createGroup");
 const [isCreateGroupModalOpen, setIsCreateGroupModalOpen] = useState(
   createGroupParam === "true"
 );
-
-  const router = useRouter();
-  const searchParams = useSearchParams();
 
   const { data, isLoading } = useConvexQuery(api.contacts.getAllContacts);
 
