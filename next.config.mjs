@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  turbopack: {
+    enabled: false,
+  },
 };
 
 export default nextConfig;
