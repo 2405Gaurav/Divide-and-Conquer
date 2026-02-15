@@ -27,15 +27,13 @@ const [isCreateGroupModalOpen, setIsCreateGroupModalOpen] = useState(
 
   const { data, isLoading } = useConvexQuery(api.contacts.getAllContacts);
 
-  useEffect(() => {
-    const createGroupParam = searchParams.get("createGroup");
-    if (createGroupParam === "true") {
-      setIsCreateGroupModalOpen(true);
-      const url = new URL(window.location.href);
-      url.searchParams.delete("createGroup");
-      router.replace(url.pathname + url.search);
-    }
-  }, [searchParams, router]);
+useEffect(() => {
+  if (createGroupParam === "true") {
+    const url = new URL(window.location.href);
+    url.searchParams.delete("createGroup");
+    router.replace(url.pathname + url.search);
+  }
+}, [createGroupParam, router]);
 
   // 2. Define Animation Variants
   const containerVariants = {
