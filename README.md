@@ -1,14 +1,18 @@
-# **Divide and Conquer**
+# DIVIDE AND CONQUER
 
-## 🚀 [Live at: https://dac-gt.thegauravthakur.in/](https://dac-gt.thegauravthakur.in/)
+## Smart Expense Splitting • Real-time Sync • AI-Powered Insights
+
+### 🌐 [Live Demo](https://dac-gt.thegauravthakur.in/) • 📦 [GitHub Repository](https://github.com/2405Gaurav/Divide-and-Conquer) • ⚡ [Built with Next.js](https://nextjs.org/)
 
 ---
 
 ## 📝 Overview
 
-**Divide and Conquer** is a modern, beautifully crafted expense-sharing application that makes splitting costs with friends, roommates, and travel buddies effortless. Built with cutting-edge backend technologies and system design principles, it's not just another Splitwise clone—it's better.
+⚡ **The Problem**: Splitting expenses is a nightmare. Spreadsheets fail. Manual calculations error. Friendships suffer.
 
-Stop keeping track of who owes what in spreadsheets or group chats. Let Divide and Conquer handle the math, the reminders, and the peace of mind.
+✨ **The Solution**: Divide and Conquer—a beautifully crafted, real-time expense-sharing app with intelligent settlement algorithms, automated reports, and smart reminders. Built on cutting-edge backend architecture with system design principles that scale.
+
+Stop keeping track of who owes what. Let Divide and Conquer handle the math, the reminders, and the peace of mind.
 
 ---
 
@@ -166,25 +170,27 @@ Convex provides a real-time database with built-in authentication and instant re
 
 This project implements several key system design principles:
 
-### **Scalability**
+**Scalability**
 - Stateless backend architecture
 - Horizontal scaling with Convex's managed database
 - Efficient querying and indexing strategies
 
-### **Reliability**
+**Reliability**
 - Inngest ensures jobs run reliably with retries
 - Eventual consistency for distributed transactions
 - Comprehensive error handling
 
-### **Performance**
+**Performance**
 - Real-time updates via WebSocket
 - Optimized database queries
 - Client-side caching and state management
 
-### **User Experience**
+**User Experience**
 - Instant feedback for all actions
 - Smooth animations and transitions
 - Mobile-responsive design
+
+*More system design deep-dives coming soon in the Notion documentation!*
 
 ---
 
@@ -279,48 +285,9 @@ This project is part of my backend development journey, focusing on:
 
 **Daily Improvements**: This project is actively maintained and improved daily as I sharpen my backend engineering skills.
 
----
 
-## 🤝 How It Works
 
-### Splitting an Expense
-1. Create a new expense and select participants
-2. Choose split method (equal, custom, or percentage)
-3. App automatically calculates individual shares
-4. Expense is saved and balances update in real-time
 
-### Settling Up
-1. View your balances and debts in the dashboard
-2. Click on a debt to settle or create a payment
-3. Mark as paid when money is transferred
-4. Reminder notifications keep everyone accountable
-
-### Viewing Insights
-1. Weekly spending reports auto-generate every Monday
-2. Monthly reports provide detailed breakdowns
-3. Category-wise spending analysis
-4. Compare spending trends over time
-
----
-
-## 📊 Routes & Endpoints
-
-### Web Routes
-- `/` - Landing page
-- `/dashboard` - Main app dashboard
-- `/contacts` - Contact management
-- `/expenses` - Expense listing
-- `/expenses/new` - Create expense
-- `/groups` - Group management
-- `/groups/[id]` - Group details
-- `/person/[id]` - Person profile
-- `/settlements` - Settlement history
-
-### API Routes
-- `/api/inngest` - Inngest event webhooks
-- Convex mutations and queries via real-time client
-
----
 
 ## 🎯 Roadmap
 
@@ -351,19 +318,7 @@ This project is open source and available under the MIT License.
 
 ---
 
-## 🤝 Contributing
 
-Contributions are welcome! Feel free to open issues and pull requests.
-
-```bash
-# Fork the repository
-# Create your feature branch (git checkout -b feature/AmazingFeature)
-# Commit changes (git commit -m 'Add AmazingFeature')
-# Push to branch (git push origin feature/AmazingFeature)
-# Open a Pull Request
-```
-
----
 
 ## 📞 Get in Touch
 
