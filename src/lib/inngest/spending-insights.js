@@ -1,5 +1,5 @@
 import { ConvexHttpClient } from "convex/browser";
-import { api } from "../../../convex/_generated/";
+import { api } from "../../../convex/_generated/api";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { inngest } from "./client";
 
