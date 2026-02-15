@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
+import { useMemo } from "react";
+
 import { Slider } from "@/components/ui/slider";
 
 export function SplitSelector({
@@ -18,72 +20,117 @@ export function SplitSelector({
   const [totalPercentage, setTotalPercentage] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
 
-  // Calculate splits when inputs change
-  useEffect(() => {
-    if (!amount || amount <= 0 || participants.length === 0) {
-      return;
-    }
+//   // Calculate splits when inputs change
+//   useEffect(() => {
+//     if (!amount || amount <= 0 || participants.length === 0) {
+//       return;
+//     }
 
-    let newSplits = [];
+//     let newSplits = [];
 
-    if (type === "equal") {
-      // Equal splits
-      const shareAmount = amount / participants.length;
-      newSplits = participants.map((participant) => ({
-        userId: participant.id,
-        name: participant.name,
-        email: participant.email,
-        imageUrl: participant.imageUrl,
-        amount: shareAmount,
-        percentage: 100 / participants.length,
-        paid: participant.id === paidByUserId,
-      }));
-    } else if (type === "percentage") {
-      // Initialize percentage splits evenly
-      const evenPercentage = 100 / participants.length;
-      newSplits = participants.map((participant) => ({
-        userId: participant.id,
-        name: participant.name,
-        email: participant.email,
-        imageUrl: participant.imageUrl,
-        amount: (amount * evenPercentage) / 100,
-        percentage: evenPercentage,
-        paid: participant.id === paidByUserId,
-      }));
-    } else if (type === "exact") {
-      // Initialize exact splits evenly
-      const evenAmount = amount / participants.length;
-      newSplits = participants.map((participant) => ({
-        userId: participant.id,
-        name: participant.name,
-        email: participant.email,
-        imageUrl: participant.imageUrl,
-        amount: evenAmount,
-        percentage: (evenAmount / amount) * 100,
-        paid: participant.id === paidByUserId,
-      }));
-    }
+//     if (type === "equal") {
+//       // Equal splits
+//       const shareAmount = amount / participants.length;
+//       newSplits = participants.map((participant) => ({
+//         userId: participant.id,
+//         name: participant.name,
+//         email: participant.email,
+//         imageUrl: participant.imageUrl,
+//         amount: shareAmount,
+//         percentage: 100 / participants.length,
+//         paid: participant.id === paidByUserId,
+//       }));
+//     } else if (type === "percentage") {
+//       // Initialize percentage splits evenly
+//       const evenPercentage = 100 / participants.length;
+//       newSplits = participants.map((participant) => ({
+//         userId: participant.id,
+//         name: participant.name,
+//         email: participant.email,
+//         imageUrl: participant.imageUrl,
+//         amount: (amount * evenPercentage) / 100,
+//         percentage: evenPercentage,
+//         paid: participant.id === paidByUserId,
+//       }));
+//     } else if (type === "exact") {
+//       // Initialize exact splits evenly
+//       const evenAmount = amount / participants.length;
+//       newSplits = participants.map((participant) => ({
+//         userId: participant.id,
+//         name: participant.name,
+//         email: participant.email,
+//         imageUrl: participant.imageUrl,
+//         amount: evenAmount,
+//         percentage: (evenAmount / amount) * 100,
+//         paid: participant.id === paidByUserId,
+//       }));
+//     }
 
-    setSplits(newSplits);
+//     setSplits(newSplits);
 
-    // Calculate totals
-    const newTotalAmount = newSplits.reduce(
-      (sum, split) => sum + split.amount,
-      0
-    );
-    const newTotalPercentage = newSplits.reduce(
-      (sum, split) => sum + split.percentage,
-      0
-    );
+//     // Calculate totals
+//     const newTotalAmount = newSplits.reduce(
+//       (sum, split) => sum + split.amount,
+//       0
+//     );
+//     const newTotalPercentage = newSplits.reduce(
+//       (sum, split) => sum + split.percentage,
+//       0
+//     );
 
-    setTotalAmount(newTotalAmount);
-    setTotalPercentage(newTotalPercentage);
+//     setTotalAmount(newTotalAmount);
+//     setTotalPercentage(newTotalPercentage);
 
-    // Notify parent about the split changes
-    if (onSplitsChange) {
-      onSplitsChange(newSplits);
-    }
-  }, [type, amount, participants, paidByUserId, onSplitsChange]);
+//     // Notify parent about the split changes
+//     if (onSplitsChange) {
+//       onSplitsChange(newSplits);
+//     }
+//   }, [type, amount, participants, paidByUserId, onSplitsChange]);
+
+const baseSplits = useMemo(() => {
+  if (!amount || amount <= 0 || participants.length === 0) return [];
+
+  if (type === "equal") {
+    const shareAmount = amount / participants.length;
+    return participants.map((p) => ({
+      userId: p.id,
+      name: p.name,
+      email: p.email,
+      imageUrl: p.imageUrl,
+      amount: shareAmount,
+      percentage: 100 / participants.length,
+      paid: p.id === paidByUserId,
+    }));
+  }
+
+  if (type === "percentage") {
+    const evenPercentage = 100 / participants.length;
+    return participants.map((p) => ({
+      userId: p.id,
+      name: p.name,
+      email: p.email,
+      imageUrl: p.imageUrl,
+      amount: (amount * evenPercentage) / 100,
+      percentage: evenPercentage,
+      paid: p.id === paidByUserId,
+    }));
+  }
+
+  if (type === "exact") {
+    const evenAmount = amount / participants.length;
+    return participants.map((p) => ({
+      userId: p.id,
+      name: p.name,
+      email: p.email,
+      imageUrl: p.imageUrl,
+      amount: evenAmount,
+      percentage: (evenAmount / amount) * 100,
+      paid: p.id === paidByUserId,
+    }));
+  }
+
+  return [];
+}, [type, amount, participants, paidByUserId]);
 
   // Update the percentage splits - no automatic adjustment of other values
   const updatePercentageSplit = (userId, newPercentage) => {

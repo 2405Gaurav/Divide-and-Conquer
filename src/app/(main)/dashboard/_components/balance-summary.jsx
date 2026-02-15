@@ -13,7 +13,7 @@ export function BalanceSummary({ balances }) {
     <div className="space-y-4">
       {!hasOwed && !hasOwing && (
         <div className="text-center py-6">
-          <p className="text-muted-foreground">You're all settled up!</p>
+          <p className="text-muted-foreground">You&apos;re all settled up!</p>
         </div>
       )}
 

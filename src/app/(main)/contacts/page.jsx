@@ -16,7 +16,12 @@ import { CreateGroupModal } from "./_components/create-group-modal";
 import { cn } from "@/lib/utils";
 
 export default function ContactsPage() {
-  const [isCreateGroupModalOpen, setIsCreateGroupModalOpen] = useState(false);
+//   const [isCreateGroupModalOpen, setIsCreateGroupModalOpen] = useState(false);
+const createGroupParam = searchParams.get("createGroup");
+const [isCreateGroupModalOpen, setIsCreateGroupModalOpen] = useState(
+  createGroupParam === "true"
+);
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
