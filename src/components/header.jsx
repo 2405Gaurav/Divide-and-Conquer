@@ -41,7 +41,7 @@ export default function Header() {
             alt="Vehiql Logo"
             width={160}
             height={80}
-            className="h-12 w-auto object-contain"
+            className="h-20 w-auto object-contain"
             priority
           />
         </Link>
