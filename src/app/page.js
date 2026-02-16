@@ -2,15 +2,14 @@
 import { useEffect, useState } from "react";
 import Features from "@/components/feature";
 import HowItWorks from "@/components/howitworks"
-
-import { SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
-
+import { SignUpButton } from "@clerk/nextjs";
 import { Authenticated, Unauthenticated } from "convex/react";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  // 1. New state for the launch effect
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const heroTexts = [
     { text: 'with anyone.', color: '#5a6670', icon: '✖️' },
@@ -20,6 +19,11 @@ export default function Home() {
   ];
 
   useEffect(() => {
+    // 2. Trigger animation immediately after mount
+    // setIsLoaded(true);
+  const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % heroTexts.length);
     }, 3000);
@@ -35,11 +39,18 @@ export default function Home() {
     <main className="min-h-screen bg-[#f5f5f5] font-sans">
 
       {/* ================= HERO SECTION ================= */}
-      {/* This section keeps the h-screen and flex-row layout */}
       <section className="relative min-h-screen flex flex-col lg:flex-row items-center overflow-hidden">
 
         {/* --- Left Content --- */}
-        <div className="w-full lg:w-5/12 px-6 py-12 lg:pl-24 lg:pr-8 z-10 flex flex-col items-start justify-center min-h-[50vh] lg:min-h-screen">
+        {/* Added transition classes based on `isLoaded` */}
+        <div 
+          className={`
+            w-full lg:w-5/12 px-6 py-12 lg:pl-24 lg:pr-8 z-10 
+            flex flex-col items-start justify-center min-h-[50vh] lg:min-h-screen
+            transition-all duration-1000 ease-out
+            ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+          `}
+        >
 
           <h1 className="text-3xl md:text-5xl font-extrabold text-gray-800 leading-tight mb-8 tracking-tight">
             Less stress when<br />
@@ -76,39 +87,36 @@ export default function Home() {
           <Authenticated>
             <Link href="/dashboard">
               <button
-                // 
                 className="px-8 py-3 text-lg md:text-xl font-semibold text-white rounded-lg shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 style={{ backgroundColor: heroTexts[currentIndex].color }}
               >
-
                 Dashboard
-
-
-
               </button>
             </Link>
           </Authenticated>
           <Unauthenticated>
             <SignUpButton>
              <button
-                // 
                 className="px-8 py-3 text-lg md:text-xl font-semibold text-white rounded-lg shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 style={{ backgroundColor: heroTexts[currentIndex].color }}
               >
-
                 SignUp
-
-
-
               </button>
             </SignUpButton>
           </Unauthenticated>
         </div>
 
         {/* --- Right Content (Illustrations) --- */}
-        <div className="w-full lg:w-7/12 relative h-[50vh] lg:h-screen flex items-center justify-center pointer-events-none">
+        {/* Added transition classes with a delay (`delay-300`) for a staggering effect */}
+        <div 
+          className={`
+            w-full lg:w-7/12 relative h-[50vh] lg:h-screen flex items-center justify-center pointer-events-none
+            transition-all duration-1000 delay-300 ease-out
+            ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}
+          `}
+        >
 
-          <div className="relative w-full h-full max-w-[800px] max-h-[650px] flex items-center justify-center p-10">
+          <div className="relative w-full h-full max-w-200 max-h-162.5 flex items-center justify-center p-10">
 
             {/* Shape 0 - Gray (Anyone) */}
             <div className={`absolute inset-0 transition-all duration-700 ease-in-out ${currentIndex === 0 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>

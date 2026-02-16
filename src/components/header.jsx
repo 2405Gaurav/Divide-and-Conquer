@@ -1,112 +1,6 @@
-// "use client";
-
-// import { useStoreUserEffect } from "@/useStoreUserEffect";
-// import {
-//   SignedIn,
-//   SignInButton,
-//   SignUpButton,
-//   SignedOut,
-//   UserButton,
-// } from "@clerk/nextjs";
-// import Image from "next/image";
-// import Link from "next/link";
-// import { BarLoader } from "react-spinners";
-// import { usePathname } from "next/navigation"; 
-// import { Button } from "@/components/ui/button";
-
-// const Header = () => {
-//   const { isLoading } = useStoreUserEffect();
-  
-//   //we need to only display the fature and how it works,but only when we are on the Hoome page
-//   //for this we will use the usePathname hook from next/navigation and check if the pathname is / then only we will display the fature and how it works
-//   const path = usePathname();
-
-//   return (
-//     <header className="fixed top-0 w-full border-b border-emerald-100 bg-white/95 backdrop-blur z-50">
-//       <nav className="flex items-center justify-between px-6 py-3 max-w-7xl mx-auto">
-        
-//         {/* LEFT → Logo */}
-//         <Link href="/" className="hover:opacity-90 transition-opacity">
-//           <Image
-//             src="/images/logo2.png"
-//             alt="logo"
-//             width={140}
-//             height={40}
-//             className="h-16 w-auto object-contain"
-//             priority
-//           />
-//         </Link>
-
-//         {/* CENTER → Features & How it works (Conditional) */}
-//         {path === "/" && (
-//           <div className="hidden md:flex items-center gap-8">
-//             <Link 
-//               href="#features" 
-//               className="text-gray-600 hover:text-emerald-600 font-medium transition-colors"
-//             > 
-//               Features 
-//             </Link>
-//             <Link 
-//               href="#how-it-works" 
-//               className="text-gray-600 hover:text-emerald-600 font-medium transition-colors"
-//             > 
-//               How it works 
-//             </Link> 
-//           </div> 
-//         )}
-
-//         {/* RIGHT → Auth Buttons */}
-//         <div className="flex items-center gap-4">
-          
-//           {/* Show when user is NOT logged in */}
-//           <SignedOut>
-//             <SignInButton mode="modal">
-//               <Button variant="ghost" className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50">
-//                 Sign In
-//               </Button>
-//             </SignInButton>
-            
-//             <SignUpButton mode="modal">
-//               <Button className="bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm">
-//                 Get Started
-//               </Button>
-//             </SignUpButton>
-//           </SignedOut>
-
-//           {/* Show when user IS logged in */}
-//           <SignedIn>
-//             <Link href="/dashboard">
-//               <Button variant="ghost" className="text-gray-600 hover:text-emerald-600 hover:bg-emerald-50">
-//                 Dashboard
-//               </Button>
-//             </Link>
-//             <UserButton 
-//               appearance={{
-//                 elements: {
-//                   avatarBox: "h-10 w-10 border border-emerald-200"
-//                 }
-//               }}
-//             />
-//           </SignedIn>
-//         </div>
-//       </nav>
-
-//       {/* Loading Bar with Green Theme */}
-//       {isLoading && (
-//         <div className="absolute bottom-0 w-full">
-//           <BarLoader width="100%" height={3} color="#10b981" />
-//         </div>
-//       )}
-//     </header>
-//   );
-// };
-
-// export default Header;
-
-
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { LayoutDashboard } from "lucide-react";
 import Link from "next/link";
@@ -120,63 +14,89 @@ import { usePathname } from "next/navigation";
 export default function Header() {
   const { isLoading } = useStoreUser();
   const path = usePathname();
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Trigger the mild launch effect on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <header className="fixed top-0 w-full border-b bg-white/95 backdrop-blur z-50 supports-backdrop-filter:bg-white/60">
-      <nav className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
+    <header
+      className={`
+        fixed top-0 w-full z-50 
+        bg-white/80 backdrop-blur-md border-b border-gray-100
+        transition-all duration-1000 ease-out
+        ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}
+      `}
+    >
+      <nav className="container mx-auto px-6 h-20 flex items-center justify-between">
+        {/* LOGO */}
+        <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
           <Image
             src={"/images/logos/logo2.png"}
             alt="Vehiql Logo"
-            width={200}
-            height={100}
-            className="h-20 w-auto object-contain"
+            width={160}
+            height={80}
+            className="h-12 w-auto object-contain"
+            priority
           />
         </Link>
 
+        {/* CENTER LINKS - Only on Home Page */}
         {path === "/" && (
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-8">
             <Link
               href="#features"
-              className="text-sm font-medium hover:text-green-600 transition"
+              className="text-sm font-medium text-gray-500 hover:text-[#1cc29f] transition-colors duration-300"
             >
               Features
             </Link>
             <Link
               href="#how-it-works"
-              className="text-sm font-medium hover:text-green-600 transition"
+              className="text-sm font-medium text-gray-500 hover:text-[#1cc29f] transition-colors duration-300"
             >
               How It Works
             </Link>
             <Link
-              href="#system-design"
-              className="text-sm font-medium hover:text-green-600 transition"
+              href="#docs"
+              className="text-sm font-medium text-gray-500 hover:text-[#1cc29f] transition-colors duration-300"
             >
-              System Design
+              Docs
             </Link>
           </div>
         )}
 
-        <div className="flex items-center gap-">
+        {/* RIGHT SIDE ACTIONS */}
+        <div className="flex items-center gap-4">
           <Authenticated>
             <Link href="/dashboard">
+              {/* Desktop Dashboard Button */}
               <Button
-                variant="outline"
-                className="hidden md:inline-flex items-center gap-2 hover:text-green-600 hover:border-green-600 transition"
+                variant="ghost"
+                className="hidden md:inline-flex items-center gap-2 text-gray-600 hover:text-[#1cc29f] hover:bg-[#1cc29f]/10 transition-all duration-300"
               >
                 Dashboard
               </Button>
-              <Button variant="ghost" className="md:hidden w-15 h-10 p-0">
-                <LayoutDashboard className="h-4 w-8" />
+              {/* Mobile Dashboard Icon */}
+              <Button 
+                variant="ghost" 
+                size="icon"
+                className="md:hidden text-gray-600"
+              >
+                <LayoutDashboard className="h-5 w-5" />
               </Button>
             </Link>
 
             <UserButton
               appearance={{
                 elements: {
-                  avatarBox: "w-10 h-10",
-                  userButtonPopoverCard: "shadow-xl",
-                  userPreviewMainIdentifier: "font-semibold",
+                  avatarBox: "w-9 h-9 border-2 border-white shadow-sm",
+                  userButtonPopoverCard: "shadow-xl border border-gray-100",
+                  userPreviewMainIdentifier: "font-semibold text-gray-700",
                 },
               }}
               afterSignOutUrl="/"
@@ -184,19 +104,32 @@ export default function Header() {
           </Authenticated>
 
           <Unauthenticated>
-            <SignInButton>
-              <Button variant="ghost">Sign In</Button>
+            <SignInButton mode="modal">
+              <Button 
+                variant="ghost" 
+                className="text-gray-600 hover:text-gray-900 hover:bg-gray-100/50"
+              >
+                Sign In
+              </Button>
             </SignInButton>
 
-            <SignUpButton>
-              <Button className="bg-green-600 hover:bg-green-700 border-none">
+            <SignUpButton mode="modal">
+              <Button 
+                className="bg-[#1cc29f] hover:bg-[#15a386] text-white border-none shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5"
+              >
                 Get Started
               </Button>
             </SignUpButton>
           </Unauthenticated>
         </div>
       </nav>
-      {isLoading && <BarLoader width={"100%"} color="#36d7b7" />}
+
+      {/* Loading Bar - Matches the Teal theme */}
+      {isLoading && (
+        <div className="absolute bottom-0 w-full">
+          <BarLoader width={"100%"} color="#1cc29f" height={2} />
+        </div>
+      )}
     </header>
   );
 }

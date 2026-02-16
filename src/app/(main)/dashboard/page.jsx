@@ -259,11 +259,11 @@ const DashboardSkeleton = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <Skeleton className="h-[500px] rounded-xl" />
+            <Skeleton className="h-125 rounded-xl" />
           </div>
           <div className="space-y-8">
-            <Skeleton className="h-[250px] rounded-xl" />
-            <Skeleton className="h-[250px] rounded-xl" />
+            <Skeleton className="h-62.5 rounded-xl" />
+            <Skeleton className="h-62.5 rounded-xl" />
           </div>
         </div>
       </div>

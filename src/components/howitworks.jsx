@@ -16,7 +16,7 @@ import {
 
 const FeaturedIcon = ({ icon: Icon, color }) => (
   <div className="mb-6 flex">
-    <div className={`relative flex h-12 w-12 items-center justify-center rounded-full border-[8px] bg-opacity-10`}
+    <div className={`relative flex h-12 w-12 items-center justify-center rounded-full border-8 bg-opacity-10`}
          style={{ borderColor: `${color}15`, backgroundColor: `${color}30` }}>
        <Icon className="h-5 w-5" style={{ color: color }} />
     </div>
