@@ -325,7 +325,7 @@ This project is open source and available under the MIT License.
 Have questions or suggestions? Connect with me:
 
 - **Twitter**: [@thegauravthakur](https://twitter.com/thegauravthakur)
-- **GitHub**: [@thegauravthakur](https://github.com/thegauravthakur)
+- **GitHub**: [@thegauravthakur](https://github.com/2405Gaurav)
 - **Email**: your.email@example.com
 
 ---
